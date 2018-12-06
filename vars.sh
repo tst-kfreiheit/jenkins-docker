@@ -6,8 +6,8 @@
 # Keep a running list of versions and SHA256 values here.
 # Comment out and add two new lines for each version -- that way, it's easy
 # to rebuild an previous version if we need simply by changing the active version/sha:
-JENKINS_VERSION=2.150
-JENKINS_SHA256=90e827e570d013551157e78249b50806f5c3953f9845b634f5c0fc542bf54b9a
+JENKINS_VERSION=2.154
+JENKINS_SHA256=2d12418c2e482eaf2cf1d13ad2b25f58e801b80c46cbd6dd3bae4c6df308d98e
 DOCKER_VERSION=18.06.1~ce~3-0~debian
 
 # Docker tag format is JENKINS_TAG-DOCKER_TAG:
