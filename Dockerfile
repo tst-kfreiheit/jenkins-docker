@@ -77,6 +77,12 @@ COPY jenkins.sh /usr/local/bin/jenkins.sh
 COPY tini-shim.sh /bin/tini
 ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins.sh"]
 
-# from a derived Dockerfile, can use `RUN plugins.sh active.txt` to setup /usr/share/jenkins/ref/plugins from a support bundle
-COPY plugins.sh /usr/local/bin/plugins.sh
+# Prevent the plugin upgrade page from appearing
+RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
+
+# Install plugins - but move them to /tmp/plugins....the bootstrap script will overwrite
+# /var/jenkins_home/plugins with /tmp/plugins/* content (forced upgrade/purge of deleted plugins)
 COPY install-plugins.sh /usr/local/bin/install-plugins.sh
+COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+RUN  /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt && mv /var/jenkins_home/plugins /tmp/
+
